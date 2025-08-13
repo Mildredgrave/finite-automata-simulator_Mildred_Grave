@@ -1,10 +1,10 @@
-from flask import  Flask
+from flask import Flask
 
-def app():
+def create_app():
     app = Flask(__name__)
 
-    from .view.index import loadarchive
-
-    app.register_blueprint(loadarchive)
+    # Register blueprint
+    from .view.index import load_archive
+    app.register_blueprint(load_archive)
 
     return app

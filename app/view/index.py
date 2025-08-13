@@ -1,20 +1,25 @@
-from flask import Blueprint,request
-from ..services.service import Archive
+from flask import Blueprint, request, jsonify
+from app.services.service import Archive, AutomatonProcessor, format_transitions
 
-loadarchive = Blueprint('loadarchive', __name__, url_prefix='/')
+load_archive = Blueprint('load_archive', __name__)
 
-@loadarchive.route('/')
-def index():
-    return "Welcome to the Finite Automata Simulator!"
+@load_archive.route("/process-automaton", methods=["POST"])
+def process_automaton():
+    if 'file' not in request.files:
+        return jsonify({"error": "No JSON file provided"}), 400
 
+    file = request.files['file']
 
-@loadarchive.route('/archive/', methods=['POST'])
-def archive_post():
-    data = request.files.get('file')
+    archive = Archive(file)
+    json_content, status = archive.initializer()
+    if status != 200:
+        return jsonify({"error": json_content}), status
 
-    response = Archive(data)
+    results = []
+    for automaton in json_content:
+        automaton["transitions"] = format_transitions(automaton["transitions"])
+        processor = AutomatonProcessor(automaton)
+        result = processor.process(automaton["id"])
+        results.append(result)
 
-    return response.initializer()
-
-
-    
+    return jsonify(results), 200

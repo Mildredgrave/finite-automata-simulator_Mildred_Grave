@@ -1,0 +1,38 @@
+[
+  {
+    "id": "automaton_3",
+    "name": "Binary strings divisible by 3",
+    "initial_state": "q0",
+    "acceptance_states": ["q0"],
+    "alphabet": ["0", "1"],
+    "states": ["q0", "q1", "q2"],
+    "transitions": [
+      {"from_state": "q0", "symbol": "0", "to_state": "q0"},
+      {"from_state": "q0", "symbol": "1", "to_state": "q1"},
+      {"from_state": "q1", "symbol": "0", "to_state": "q2"},
+      {"from_state": "q1", "symbol": "1", "to_state": "q0"},
+      {"from_state": "q2", "symbol": "0", "to_state": "q1"},
+      {"from_state": "q2", "symbol": "1", "to_state": "q2"}
+    ],
+    "test_strings": ["", "0", "11", "110", "101", "1110", "1001", "111"]
+  },
+  {
+    "id": "automaton_4",
+    "name": "Strings ending with '01'",
+    "initial_state": "start",
+    "acceptance_states": ["q_accept"],
+    "alphabet": ["0", "1"],
+    "states": ["start", "q0", "q1", "q_accept"],
+    "transitions": [
+      {"from_state": "start", "symbol": "0", "to_state": "q0"},
+      {"from_state": "start", "symbol": "1", "to_state": "start"},
+      {"from_state": "q0", "symbol": "0", "to_state": "q0"},
+      {"from_state": "q0", "symbol": "1", "to_state": "q_accept"},
+      {"from_state": "q1", "symbol": "0", "to_state": "q0"},
+      {"from_state": "q1", "symbol": "1", "to_state": "start"},
+      {"from_state": "q_accept", "symbol": "0", "to_state": "q0"},
+      {"from_state": "q_accept", "symbol": "1", "to_state": "start"}
+    ],
+    "test_strings": ["01", "001", "101", "11101", "100", "0", "1", ""]
+  }
+]

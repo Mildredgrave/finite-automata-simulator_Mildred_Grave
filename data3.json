@@ -1,0 +1,49 @@
+[
+  {
+    "id": "automaton_1",
+    "name": "Even numbers recognizer",
+    "initial_state": "q0",
+    "acceptance_states": ["q0"],
+    "alphabet": ["0", "1"],
+    "states": ["q0", "q1"],
+    "transitions": [
+      { "from_state": "q0", "symbol": "0", "to_state": "q0" },
+      { "from_state": "q0", "symbol": "1", "to_state": "q1" },
+      { "from_state": "q1", "symbol": "0", "to_state": "q0" },
+      { "from_state": "q1", "symbol": "1", "to_state": "q1" }
+    ],
+    "test_strings": ["0", "10", "101", "1010", ""]
+  },
+  {
+    "id": "automaton_2",
+    "name": "Binary strings ending with 01",
+    "initial_state": "q0",
+    "acceptance_states": ["q2"],
+    "alphabet": ["0", "1"],
+    "states": ["q0", "q1", "q2"],
+    "transitions": [
+      { "from_state": "q0", "symbol": "0", "to_state": "q1" },
+      { "from_state": "q0", "symbol": "1", "to_state": "q0" },
+      { "from_state": "q1", "symbol": "0", "to_state": "q1" },
+      { "from_state": "q1", "symbol": "1", "to_state": "q2" },
+      { "from_state": "q2", "symbol": "0", "to_state": "q1" },
+      { "from_state": "q2", "symbol": "1", "to_state": "q0" }
+    ],
+    "test_strings": ["01", "001", "1101", "111", ""]
+  },
+  {
+    "id": "automaton_3",
+    "name": "Strings with odd number of 1s",
+    "initial_state": "q0",
+    "acceptance_states": ["q1"],
+    "alphabet": ["0", "1"],
+    "states": ["q0", "q1"],
+    "transitions": [
+      { "from_state": "q0", "symbol": "0", "to_state": "q0" },
+      { "from_state": "q0", "symbol": "1", "to_state": "q1" },
+      { "from_state": "q1", "symbol": "0", "to_state": "q1" },
+      { "from_state": "q1", "symbol": "1", "to_state": "q0" }
+    ],
+    "test_strings": ["0", "1", "101", "110", "111"]
+  }
+]

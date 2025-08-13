@@ -1,18 +1,20 @@
 from flask import Blueprint,request
+from ..services.service import Archive
 
-archive = Blueprint('archive', __name__, url_prefix='/')
+loadarchive = Blueprint('loadarchive', __name__, url_prefix='/')
 
-@archive.route('/')
-
+@loadarchive.route('/')
 def index():
     return "Welcome to the Finite Automata Simulator!"
 
 
-@archive.route('/archive/', methods=['POST'])
+@loadarchive.route('/archive/', methods=['POST'])
 def archive_post():
+    data = request.files.get('file')
 
-    if request.is_json:
-        data = request.get_json()
-        print(data)
+    response = Archive(data)
+
+    return response.initializer()
+
 
     

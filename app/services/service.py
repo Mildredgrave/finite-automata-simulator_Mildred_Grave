@@ -19,14 +19,15 @@ class Archive:
                 json_content = json.loads(content_string)
                 return json_content, 200
             except json.JSONDecodeError:
-                return "Error: The file is not valid JSON", 400
+                return "Error: el archivo no es JSON válido", 400
         else:
-            return "No file received", 400
+            return "No se recibió ningún archivo", 400
 
 
 def format_transitions(transitions_list):
     """
-    Convert JSON transitions list to a dictionary {from_state: {symbol: to_state}}
+    Convierte la lista de transiciones del JSON en un diccionario
+    {origen: {simbolo: destino}}
     """
     trans_dict = {}
     for t in transitions_list:
@@ -52,31 +53,31 @@ class AutomatonProcessor:
         acceptance = self.automaton.get("acceptance_states")
 
         if not states or not isinstance(states, list):
-            self.errors.append("States are not defined or type is incorrect.")
+            self.errors.append("Estados no definidos o tipo incorrecto.")
         if not alphabet or not isinstance(alphabet, list):
-            self.errors.append("Alphabet is not defined or type is incorrect.")
+            self.errors.append("Alfabeto no definido o tipo incorrecto.")
         if initial not in states:
-            self.errors.append(f"Initial state '{initial}' does not exist.")
+            self.errors.append(f"Estado Inicial '{initial}' no existe.")
         if not acceptance:
-            self.errors.append("No acceptance states defined in the automaton.")
+            self.errors.append("No hay estados de aceptación en el autómata.")
         elif not set(acceptance).issubset(states):
-            self.errors.append("Some acceptance states do not exist in the list of states.")
+            self.errors.append("Algún estado de aceptación no existe en la lista de estados.")
 
         for origin, trans in transitions.items():
             for symbol in trans.keys():
                 if symbol not in alphabet:
-                    self.errors.append(f"Symbol '{symbol}' is not in the alphabet.")
+                    self.errors.append(f"Simbolo '{symbol}' no está en el alfabeto.")
 
         for origin, trans in transitions.items():
             if origin not in states:
-                self.errors.append(f"Origin state '{origin}' in transitions is not defined.")
+                self.errors.append(f"Estado '{origin}' en transiciones no está definido.")
             for destination in trans.values():
                 if destination not in states:
-                    self.errors.append(f"Destination '{destination}' does not exist.")
+                    self.errors.append(f"Destino '{destination}' no existe.")
 
         for state in states:
             if state not in transitions:
-                self.errors.append(f"State '{state}' does not have defined transitions.")
+                self.errors.append(f"Estado '{state}' no tiene transiciones definidas.")
 
         return not self.errors
 
@@ -111,7 +112,7 @@ class AutomatonProcessor:
         return {
             "id": automaton_id,
             "status": "success",
-            "message": "Automaton processed successfully.",
+            "message": "Automata procesado correctamente.",
             "diagram_path": filepath
         }
 

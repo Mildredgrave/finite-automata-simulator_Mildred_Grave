@@ -6,7 +6,7 @@ load_archive = Blueprint('load_archive', __name__)
 @load_archive.route("/process-automaton", methods=["POST"])
 def process_automaton():
     if 'file' not in request.files:
-        return jsonify({"error": "No JSON file provided"}), 400
+        return jsonify({"error": "No se envio archivo JSON"}), 400
 
     file = request.files['file']
 
